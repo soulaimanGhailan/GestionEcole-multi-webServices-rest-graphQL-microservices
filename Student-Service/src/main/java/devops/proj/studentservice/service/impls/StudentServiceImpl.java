@@ -61,18 +61,23 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public StudentDTO addPictureToStudent(PictureDTO pictureDTO , Long studentId) throws StudentNotFoundException {
-        StudentDTO studentDTO = findStudentById(studentId);
+    public PictureDTO addPictureToStudent(PictureDTO pictureDTO , Long studentId) throws StudentNotFoundException {
+        Student student = this.studentRepo.findById(studentId).orElseThrow(()
+                -> new RuntimeException("student not found exception"));
         Picture picture = this.pictureService.create(pictureDTO);
-        Student student = mapper.fromStudentDTO(studentDTO);
         student.setProfilePicture(picture);
-        Student savedStudent = this.studentRepo.save(student);
-        return mapper.fromStudent(savedStudent);
+        this.studentRepo.save(student) ;
+        return mapper.fromPicture(picture) ;
     }
 
     @Override
-    public StudentDTO updatePictureOfStudent(PictureDTO pictureDTO ,Long studentId) {
-        return null;
+    public PictureDTO updatePictureOfStudent(PictureDTO pictureDTO , Long studentId) {
+        Student student = this.studentRepo.findById(studentId).orElseThrow(()
+                -> new RuntimeException("student not found exception"));
+        Picture picture = pictureService.updateImage(studentId, pictureDTO);
+        student.setProfilePicture(picture);
+        this.studentRepo.save(student) ;
+        return mapper.fromPicture(picture);
     }
 
     @Override

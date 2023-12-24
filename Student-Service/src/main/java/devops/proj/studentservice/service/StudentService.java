@@ -12,8 +12,8 @@ public interface StudentService {
     StudentDTO findStudentByCne(String cne) throws StudentNotFoundException;
     StudentDTO saveStudent(StudentDTO studentDTO) ;
     StudentDTO updateStudent(StudentDTO studentDTO) throws StudentNotFoundException;
-    StudentDTO addPictureToStudent(PictureDTO pictureDTO   ,Long studentId) throws StudentNotFoundException;
-    StudentDTO updatePictureOfStudent(PictureDTO pictureDTO , Long studentId) ;
+    PictureDTO addPictureToStudent(PictureDTO pictureDTO   ,Long studentId) throws StudentNotFoundException;
+    PictureDTO updatePictureOfStudent(PictureDTO pictureDTO , Long studentId) ;
     List<StudentDTO> getStudents(int page, int size);
     PictureDTO getPictureOfStudent(Long studentId) throws StudentNotFoundException;
     StudentDTO deleteStudent(Long studentId);

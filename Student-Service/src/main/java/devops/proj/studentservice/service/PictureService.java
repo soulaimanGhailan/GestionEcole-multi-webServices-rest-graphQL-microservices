@@ -6,7 +6,6 @@ import devops.proj.studentservice.dtos.PictureDTO;
 public interface PictureService {
     Picture create(PictureDTO pictureDTO) ;
     PictureDTO getPicById(Long id);
-    PictureDTO updateImage(PictureDTO pictureDTO);
-    Picture createPictureFromBase64StringPic(String imageBase64);
+    Picture updateImage(Long pictureId, PictureDTO pictureDTO);
     void delete(Long pictureId);
 }

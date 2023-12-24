@@ -6,7 +6,6 @@ import devops.proj.studentservice.dtos.PictureDTO;
 import devops.proj.studentservice.mappers.Mapper;
 import devops.proj.studentservice.service.PictureService;
 import lombok.AllArgsConstructor;
-import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,24 +31,15 @@ public class PictureServiceImpl implements PictureService {
     }
 
     @Override
-    public PictureDTO updateImage(PictureDTO pictureDTO) {
-        return null;
-    }
-
-
-    @Override
-    public Picture createPictureFromBase64StringPic(String imageBase64) {
-        Picture picture=new Picture();
+    public Picture updateImage(Long pictureId, PictureDTO pictureDTO) {
+        Picture picture = this.pictureRepo.findById(pictureId).orElseThrow(()
+                -> new RuntimeException("picture not found exception"));
+        Picture picture1 = mapper.fromPictureDTO(pictureDTO);
         picture.setAddingDate(new Date());
-        String base64Data = imageBase64;
-        if(imageBase64.startsWith("data:image/jpeg;base64,")) {
-            base64Data = imageBase64.substring(imageBase64.indexOf(",") + 1);
-        }
-        byte[] picContent = Base64.decodeBase64(base64Data);
-        picture.setPictureContent(picContent);
-        Picture savedPic = pictureRepo.save(picture);
-        return savedPic;
+        picture.setPictureContent(picture1.getPictureContent());
+        return this.pictureRepo.save(picture);
     }
+
 
 
     @Override

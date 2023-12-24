@@ -62,7 +62,7 @@ public class StudentRestController {
     }
 
     @PostMapping("/picture/{studentId}")
-    public StudentDTO addStudentPicture(@RequestBody PictureDTO pictureDTO , @PathVariable Long studentId){
+    public PictureDTO addStudentPicture(@RequestBody PictureDTO pictureDTO , @PathVariable Long studentId){
         try {
             return this.studentService.addPictureToStudent(pictureDTO , studentId);
         } catch (StudentNotFoundException e) {
@@ -70,21 +70,25 @@ public class StudentRestController {
         }
     }
 
-    /**  delete  **/
-    @DeleteMapping("{studentId}")
-    public StudentDTO deleteStudent(@PathVariable Long studentId){
-        return this.studentService.deleteStudent(studentId);
-    }
 
     /**  put  **/
     @PutMapping
     public StudentDTO updateStudent(@RequestBody  StudentDTO studentDTO){
-        System.out.println(studentDTO);
         try {
             return this.studentService.updateStudent(studentDTO);
         } catch (StudentNotFoundException e) {
             throw new RuntimeException(e);
         }
+    }
+    @PutMapping("picture/{studentId}")
+    public PictureDTO updateStudentPicture(@RequestBody  PictureDTO pictureDTO , @PathVariable Long studentId){
+            return this.studentService.updatePictureOfStudent(pictureDTO , studentId) ;
+    }
+
+    /**  delete  **/
+    @DeleteMapping("{studentId}")
+    public StudentDTO deleteStudent(@PathVariable Long studentId){
+        return this.studentService.deleteStudent(studentId);
     }
 
 }
