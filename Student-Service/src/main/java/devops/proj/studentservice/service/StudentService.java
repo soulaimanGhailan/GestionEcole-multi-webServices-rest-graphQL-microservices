@@ -16,8 +16,8 @@ public interface StudentService {
     PictureDTO updatePictureOfStudent(PictureDTO pictureDTO , Long studentId) ;
     List<StudentDTO> getStudents(int page, int size);
     PictureDTO getPictureOfStudent(Long studentId) throws StudentNotFoundException;
-    StudentDTO deleteStudent(Long studentId);
-    void deletePictureOfStudent(Long studentId);
+    StudentDTO deleteStudent(Long studentId) throws StudentNotFoundException;
+    void deletePictureOfStudent(Long studentId) throws StudentNotFoundException;
     void deleteAllStudentsOfCourse(Long courseId);
     void deleteAllStudent() ;
 }

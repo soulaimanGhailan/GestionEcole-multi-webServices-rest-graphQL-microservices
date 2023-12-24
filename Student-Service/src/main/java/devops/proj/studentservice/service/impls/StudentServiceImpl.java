@@ -80,14 +80,24 @@ public class StudentServiceImpl implements StudentService {
         return mapper.fromPicture(picture);
     }
 
+    // avant il faut suprimmer l'image associer
     @Override
-    public StudentDTO deleteStudent(Long studentId) {
-        return null;
+    public StudentDTO deleteStudent(Long studentId) throws StudentNotFoundException {
+        Student student = this.studentRepo.findById(studentId).orElseThrow(() ->
+                new StudentNotFoundException("student not found exception"));
+        this.pictureService.delete(student.getProfilePicture().getPictureId());
+        this.studentRepo.delete(student);
+        return mapper.fromStudent(student);
     }
 
     @Override
-    public void deletePictureOfStudent(Long studentId) {
-
+    public void deletePictureOfStudent(Long studentId) throws StudentNotFoundException {
+        Student student = this.studentRepo.findById(studentId).orElseThrow(() ->
+                new StudentNotFoundException("student not found exception"));
+        Long pictureId = student.getProfilePicture().getPictureId();
+        student.setProfilePicture(null);
+        this.pictureService.delete(pictureId);
+        this.studentRepo.save(student) ;
     }
 
     @Override

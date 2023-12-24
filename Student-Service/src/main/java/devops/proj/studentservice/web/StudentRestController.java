@@ -88,7 +88,16 @@ public class StudentRestController {
     /**  delete  **/
     @DeleteMapping("{studentId}")
     public StudentDTO deleteStudent(@PathVariable Long studentId){
-        return this.studentService.deleteStudent(studentId);
+        try {
+            return this.studentService.deleteStudent(studentId);
+        } catch (StudentNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    /**  delete  **/
+    @DeleteMapping("picture/{studentId}")
+    public void deletePictureOfStudent(@PathVariable Long studentId) throws StudentNotFoundException {
+         this.studentService.deletePictureOfStudent(studentId);
     }
 
 }

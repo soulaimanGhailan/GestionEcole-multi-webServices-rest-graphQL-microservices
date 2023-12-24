@@ -44,7 +44,7 @@ public class PictureServiceImpl implements PictureService {
 
     @Override
     public void delete(Long pictureId) {
-
+        this.pictureRepo.deleteById(pictureId);
     }
 
 
