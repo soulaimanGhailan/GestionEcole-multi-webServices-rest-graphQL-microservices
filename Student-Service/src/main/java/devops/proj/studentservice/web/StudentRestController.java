@@ -28,7 +28,12 @@ public class StudentRestController {
     }
     @GetMapping("id/{id}")
     public StudentDTO getStudentById(@PathVariable Long id){
-        return studentService.findStudentById(id);
+        try {
+            return studentService.findStudentById(id);
+        } catch (StudentNotFoundException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
 
     @GetMapping("cne/{cne}")
@@ -41,15 +46,28 @@ public class StudentRestController {
         }
     }
 
+    @GetMapping("/picture/{id}")
+    public PictureDTO getPictureOfStudent(@PathVariable Long id){
+        try {
+           return this.studentService.getPictureOfStudent(id) ;
+        } catch (StudentNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     /**  post  **/
     @PostMapping
     public StudentDTO addStudent(@RequestBody StudentDTO studentDTO){
         return this.studentService.saveStudent(studentDTO);
     }
 
-    @PostMapping("picture")
-    public StudentDTO addStudentPicture(@RequestBody PictureDTO pictureDTO){
-        return this.studentService.addPictureToStudent(pictureDTO);
+    @PostMapping("/picture/{studentId}")
+    public StudentDTO addStudentPicture(@RequestBody PictureDTO pictureDTO , @PathVariable Long studentId){
+        try {
+            return this.studentService.addPictureToStudent(pictureDTO , studentId);
+        } catch (StudentNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**  delete  **/
@@ -60,8 +78,13 @@ public class StudentRestController {
 
     /**  put  **/
     @PutMapping
-    public StudentDTO updateStudent(StudentDTO studentDTO){
-        return this.studentService.updateStudent(studentDTO);
+    public StudentDTO updateStudent(@RequestBody  StudentDTO studentDTO){
+        System.out.println(studentDTO);
+        try {
+            return this.studentService.updateStudent(studentDTO);
+        } catch (StudentNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }

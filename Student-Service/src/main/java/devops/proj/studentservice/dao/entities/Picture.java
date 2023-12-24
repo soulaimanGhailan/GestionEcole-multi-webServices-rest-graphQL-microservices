@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import net.bytebuddy.dynamic.loading.InjectionClassLoader;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -12,8 +13,8 @@ import java.util.Date;
 @AllArgsConstructor @NoArgsConstructor
 @Builder
 public class Picture {
-    @Id
-    private String pictureId;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long pictureId;
     private Date addingDate;
     @Column(length = 1000000)
     @Lob

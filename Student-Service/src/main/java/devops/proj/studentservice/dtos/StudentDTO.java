@@ -9,5 +9,6 @@ public class StudentDTO {
     private String lastName ;
     private String cne ;
     private String email ;
-    private String imageContentBase64 ;
+//    private String imageContentBase64 ;
+
 }
