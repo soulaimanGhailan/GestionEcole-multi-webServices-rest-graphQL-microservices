@@ -1,0 +1,41 @@
+
+type Query {
+    getStudentById(id : Float) : StudentDTO ,
+    getStudentByCne(cne : String) : StudentDTO ,
+    getPictureOfStudent(studentId : String) : PictureDTO ,
+}
+
+
+type Mutation {
+    addStudent(student : StudentRequest) : StudentDTO ,
+    updateStudent(student : StudentRequest) : StudentDTO ,
+    addStudentPicture(picture : PictureRequest , studentId : Float) : PictureDTO ,
+    updateStudentPicture(picture : PictureRequest , studentId : Float ):PictureDTO
+    deleteStudent(studentId : Float) : StudentDTO,
+    deleteStudentPicture(studentId : Float) : String
+}
+
+type StudentDTO {
+    id : Float ,
+    firstName : String ,
+    lastName : String ,
+    cne : String ,
+    email : String
+}
+
+type PictureDTO {
+    imageContentBase64 : String
+}
+
+
+input StudentRequest {
+    id : Float ,
+    firstName : String ,
+    lastName : String ,
+    cne : String ,
+    email : String
+}
+input PictureRequest{
+    imageContentBase64 : String
+}
+

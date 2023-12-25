@@ -16,7 +16,7 @@ import java.util.List;
 public class StudentRestController {
     private StudentService studentService ;
 
-    public StudentRestController(StudentService studentService, PictureService pictureService) {
+    public StudentRestController(StudentService studentService) {
         this.studentService = studentService;
     }
 
@@ -96,7 +96,7 @@ public class StudentRestController {
     }
     /**  delete  **/
     @DeleteMapping("picture/{studentId}")
-    public void deletePictureOfStudent(@PathVariable Long studentId) throws StudentNotFoundException {
+    public void deleteStudentPicture(@PathVariable Long studentId) throws StudentNotFoundException {
          this.studentService.deletePictureOfStudent(studentId);
     }
 

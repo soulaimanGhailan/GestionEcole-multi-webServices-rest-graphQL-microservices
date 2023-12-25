@@ -1,9 +1,7 @@
 package devops.proj.studentservice.dao.entities;
-
 import devops.proj.studentservice.model.CourseStudy;
-import lombok.*;
-
 import javax.persistence.*;
+import lombok.*;
 
 @Entity
 @Data @AllArgsConstructor @NoArgsConstructor
