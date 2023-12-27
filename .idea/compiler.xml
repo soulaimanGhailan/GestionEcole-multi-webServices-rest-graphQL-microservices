@@ -7,9 +7,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="Student-Service" />
+        <module name="Fillier-Service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="Fillier-Service" target="11" />
       <module name="Student-Service" target="17" />
     </bytecodeTargetLevel>
   </component>

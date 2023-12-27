@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="Fillier-Service:war">
+    <output-path>$PROJECT_DIR$/Fillier-Service/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>Fillier-Service</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="Fillier-Service-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="Fillier-Service:war exploded" />
+    </root>
+  </artifact>
+</component>

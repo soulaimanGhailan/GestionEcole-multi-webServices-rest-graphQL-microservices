@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Fillier-Service/Fillier-Service.iml" filepath="$PROJECT_DIR$/Fillier-Service/Fillier-Service.iml" />
       <module fileurl="file://$PROJECT_DIR$/Student-Service/Student-Service.iml" filepath="$PROJECT_DIR$/Student-Service/Student-Service.iml" />
       <module fileurl="file://$PROJECT_DIR$/gestion_ecole.iml" filepath="$PROJECT_DIR$/gestion_ecole.iml" />
     </modules>
