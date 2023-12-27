@@ -105,6 +105,17 @@
         </dependency>
 
 
+<!--        open api -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>3.0.0</version> <!-- Check for the latest version -->
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>3.0.0</version> <!-- Check for the latest version -->
+        </dependency>
 
     </dependencies>
 

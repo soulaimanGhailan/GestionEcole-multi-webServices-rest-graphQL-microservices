@@ -1,4 +1,4 @@
-package devops.proj.fillierservice.webClient;
+package devops.proj.fillierservice.webClients;
 
 import feign.Feign;
 import feign.gson.GsonDecoder;

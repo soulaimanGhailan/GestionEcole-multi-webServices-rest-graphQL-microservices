@@ -85,7 +85,9 @@ public class StudentServiceImpl implements StudentService {
     public StudentDTO deleteStudent(Long studentId) throws StudentNotFoundException {
         Student student = this.studentRepo.findById(studentId).orElseThrow(() ->
                 new StudentNotFoundException("student not found exception"));
-        this.pictureService.delete(student.getProfilePicture().getPictureId());
+        if (student.getProfilePicture() != null){
+            this.pictureService.delete(student.getProfilePicture().getPictureId());
+        }
         this.studentRepo.delete(student);
         return mapper.fromStudent(student);
     }
