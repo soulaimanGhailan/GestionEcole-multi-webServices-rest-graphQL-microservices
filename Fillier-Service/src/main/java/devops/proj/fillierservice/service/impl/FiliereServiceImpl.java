@@ -20,14 +20,17 @@ public class FiliereServiceImpl implements FiliereService {
 
 	@Override
 	@Transactional
-	public void saveOrUpdate(Fillier f) {
-		this.filiereDao.saveOrUpdate(f);
+	public void saveOrUpdate(FillierDTO f) {
+		Fillier fillier = mapper.fromFillierDTO(f);
+		this.filiereDao.saveOrUpdate(fillier);
 	}
+
 
 	@Override
 	@Transactional
-	public void delete(Fillier f) {
-		this.filiereDao.delete(f);		
+	public void delete(FillierDTO f) {
+		Fillier fillier = mapper.fromFillierDTO(f);
+		this.filiereDao.delete(fillier);
 	}
 
 	@Override
@@ -42,5 +45,11 @@ public class FiliereServiceImpl implements FiliereService {
 		return filieres.stream()
 						.map(fillier -> mapper.fromFillier(fillier) )
 						.collect(Collectors.toList()) ;
+	}
+
+	@Override
+	public void deleteById(Long id) {
+		FillierDTO fillierDTO = getById(id);
+		delete(fillierDTO);
 	}
 }

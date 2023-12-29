@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor @AllArgsConstructor
 @Builder
 public class FillierDTO {
+    private Long id ;
     private String code ;
     private String libelle ;
 }

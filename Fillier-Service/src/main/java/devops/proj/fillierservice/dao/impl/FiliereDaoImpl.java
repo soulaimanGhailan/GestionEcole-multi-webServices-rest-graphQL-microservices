@@ -34,7 +34,6 @@ public class FiliereDaoImpl extends HibernateDaoSupport implements FiliereDAO {
 	@Override
 	@Transactional
 	public void delete(Fillier f) {
-		
 		this.getHibernateTemplate().delete(f);
 	}
 

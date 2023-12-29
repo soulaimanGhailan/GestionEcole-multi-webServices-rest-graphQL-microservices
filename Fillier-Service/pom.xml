@@ -104,21 +104,23 @@
             <version>11.10</version> <!-- Use the latest version available -->
         </dependency>
 
-
-<!--        open api -->
+        <!-- Swagger dependencies -->
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
-            <version>3.0.0</version> <!-- Check for the latest version -->
+            <version>3.0.0</version>
         </dependency>
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
-            <version>3.0.0</version> <!-- Check for the latest version -->
+            <version>3.0.0</version>
         </dependency>
 
-    </dependencies>
 
+
+
+
+    </dependencies>
     <build>
         <plugins>
             <plugin>
@@ -126,6 +128,7 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <version>3.3.2</version>
             </plugin>
+
         </plugins>
     </build>
 </project>

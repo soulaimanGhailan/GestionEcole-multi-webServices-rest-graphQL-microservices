@@ -2,13 +2,13 @@ package devops.proj.fillierservice.service;
 
 
 import devops.proj.fillierservice.dtos.FillierDTO;
-import devops.proj.fillierservice.entities.Fillier;
 
 import java.util.List;
 
 public interface FiliereService {
-	void saveOrUpdate(Fillier f);
-	void delete(Fillier f);
+	void saveOrUpdate(FillierDTO f);
+	void delete(FillierDTO f);
 	FillierDTO getById(Long id);
 	List<FillierDTO> getAll();
+	void deleteById(Long id);
 }
