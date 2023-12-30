@@ -40,6 +40,10 @@
 		<property name="sessionFactory" ref="sf" />
 	</bean>
 
+	<bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
+
+	</bean>
+
 	<tx:annotation-driven transaction-manager="tm" />
 
 

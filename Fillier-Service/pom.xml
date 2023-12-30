@@ -92,17 +92,7 @@
         </dependency>
 
 
-        <!--        openfeign for rest client-->
-        <dependency>
-            <groupId>io.github.openfeign</groupId>
-            <artifactId>feign-core</artifactId>
-            <version>11.10</version> <!-- Use the latest version available -->
-        </dependency>
-        <dependency>
-            <groupId>io.github.openfeign</groupId>
-            <artifactId>feign-gson</artifactId>
-            <version>11.10</version> <!-- Use the latest version available -->
-        </dependency>
+
 
         <!-- Swagger dependencies -->
         <dependency>
