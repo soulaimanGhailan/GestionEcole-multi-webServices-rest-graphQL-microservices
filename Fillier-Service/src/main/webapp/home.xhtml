@@ -10,8 +10,15 @@
    <title>home jsf</title>
 </h:head>
 <h:body>
+   <ui:include src="WEB-INF/header.xhtml"></ui:include>
+   <ui:fragment rendered="#{currentPageBean.currentPage == 'STUDENT'}">
+      <ui:include src="WEB-INF/student.xhtml" />
+   </ui:fragment>
 
+   <ui:fragment rendered="#{currentPageBean.currentPage ==  'FILIERE'}">
+      <ui:include src="WEB-INF/filiere.xhtml" />
+   </ui:fragment>
 </h:body>
 
-<ui:include src="WEB-INF/filiere.xhtml" />
+
 </html>

@@ -5,15 +5,14 @@ import devops.proj.fillierservice.service.FiliereService;
 import lombok.Data;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import java.util.List;
 
 @Component
 @ManagedBean
-@RequestScoped
+@Scope("session")
 @Data
 public class FilierBean {
     @Autowired

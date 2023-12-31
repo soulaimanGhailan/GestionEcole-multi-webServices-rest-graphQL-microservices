@@ -3,22 +3,50 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html">
-<f:view>
-    <h:outputLabel value="Hello, world"/>
-</f:view>
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
 <h:head>
 
 </h:head>
 
 <h:body>
-   <div>
-
-   </div>
-
-   <div>
-
-   </div>
+    <h:outputStylesheet library="css" name="bootstrap.css"  />
+    <div class="container mt-2">
+        <div class="card">
+            <div class="card-header">Etudiants</div>
+            <div class="card-body">
+                <h:form>
+                    <f:event type="preRenderView" listener="#{studentBean.onPageLoad}" />
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">nom</th>
+                            <th scope="col">Prenom</th>
+                            <th scope="col">Cne</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">modifier</th>
+                            <th scope="col">suprimmer</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <ui:repeat value="#{studentBean.students}" var="e">
+                            <tr>
+                                <th scope="row">#{e.id}</th>
+                                <td>#{e.firstName}</td>
+                                <td>#{e.lastName}</td>
+                                <td>#{e.cne}</td>
+                                <td>#{e.email}</td>
+                                <td><h:commandLink class="btn btn-danger" action="#{studentBean.update(e)}">modier</h:commandLink></td>
+                                <td><h:commandLink class="btn btn-info" action="#{studentBean.delete(e)}">suprimer</h:commandLink></td>
+                            </tr>
+                        </ui:repeat>
+                        </tbody>
+                    </table>
+                </h:form>
+            </div>
+        </div>
+    </div>
 </h:body>
 </html>

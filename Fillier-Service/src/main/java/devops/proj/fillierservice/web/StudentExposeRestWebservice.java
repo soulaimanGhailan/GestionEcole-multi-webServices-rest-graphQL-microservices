@@ -21,7 +21,8 @@ public class StudentExposeRestWebservice {
     @GetMapping
     public List<Student> getStudents(@RequestParam(name = "page" , defaultValue = "0") int page,
                                            @RequestParam(name = "size" , defaultValue = "5")int size){
-       return this.studentRestClient.getStudents(page , size) ;
+        List<Student> students = this.studentRestClient.getStudents(page, size);
+        return students;
     }
     @GetMapping("/id/{id}")
     public Student getStudentById(@PathVariable Long id){
