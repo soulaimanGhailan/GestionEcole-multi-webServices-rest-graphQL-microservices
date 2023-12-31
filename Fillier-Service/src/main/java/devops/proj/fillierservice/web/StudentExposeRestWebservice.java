@@ -8,32 +8,32 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("students")
-public class StudentExposeRestGraphqlWebservices {
+@RequestMapping("students/rest")
+public class StudentExposeRestWebservice {
 
     private StudentRestClient studentRestClient ;
 
-    public StudentExposeRestGraphqlWebservices(StudentRestClient studentRestClient) {
+    public StudentExposeRestWebservice(StudentRestClient studentRestClient) {
         this.studentRestClient = studentRestClient;
     }
 
     /**  Get  **/
-    @GetMapping("rest")
+    @GetMapping
     public List<Student> getStudents(@RequestParam(name = "page" , defaultValue = "0") int page,
                                            @RequestParam(name = "size" , defaultValue = "5")int size){
        return this.studentRestClient.getStudents(page , size) ;
     }
-    @GetMapping("rest/id/{id}")
+    @GetMapping("/id/{id}")
     public Student getStudentById(@PathVariable Long id){
        return this.studentRestClient.findStudentById(id) ;
     }
 
-    @GetMapping("rest/cne/{cne}")
+    @GetMapping("/cne/{cne}")
     public Student getStudentByCne(@PathVariable String cne){
         return this.studentRestClient.findStudentByCne(cne) ;
     }
 
-    @GetMapping("rest/picture/{id}")
+    @GetMapping("/picture/{id}")
     public Picture getPictureOfStudent(@PathVariable Long id){
         return this.studentRestClient.getPictureOfStudent(id) ;
     }
@@ -44,30 +44,30 @@ public class StudentExposeRestGraphqlWebservices {
       return this.studentRestClient.saveStudent(student);
     }
 
-    @PostMapping("rest/picture/{studentId}")
+    @PostMapping("/picture/{studentId}")
     public Picture addStudentPicture(@RequestBody Picture picture , @PathVariable Long studentId){
         return this.studentRestClient.addPictureToStudent(picture ,  studentId) ;
     }
 
 
     /**  put  **/
-    @PutMapping("rest")
+    @PutMapping
     public void updateStudent(@RequestBody  Student student){
        this.studentRestClient.updateStudent(student) ;
     }
 
-    @PutMapping("rest/picture/{studentId}")
+    @PutMapping("/picture/{studentId}")
     public void updateStudentPicture(@RequestBody  Picture picture , @PathVariable Long studentId){
          this.studentRestClient.updatePictureOfStudent(picture , studentId) ;
     }
 
     /**  delete  **/
-    @DeleteMapping("rest/{studentId}")
+    @DeleteMapping("/{studentId}")
     public void deleteStudent(@PathVariable Long studentId){
          this.studentRestClient.deleteStudent(studentId) ;
     }
 
-    @DeleteMapping("rest/picture/{studentId}")
+    @DeleteMapping("/picture/{studentId}")
     public void deleteStudentPicture(@PathVariable Long studentId) {
         this.studentRestClient.deletePictureOfStudent(studentId);
     }

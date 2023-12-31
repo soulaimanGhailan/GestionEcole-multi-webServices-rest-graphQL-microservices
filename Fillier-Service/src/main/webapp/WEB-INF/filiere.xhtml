@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+
+</h:head>
+
+<h:body>
+    <h:outputStylesheet library="css" name="bootstrap.css"  />
+    <h:outputStylesheet library="css" name="form.css"  />
+
+    <div class="form-style-5">
+        <h:form>
+            <fieldset>
+                <legend><span class="number">1</span> Candidate Info</legend>
+                <h:inputText value="#{filierBean.fillierDTO.id}" readonly="true"/>
+                <h:inputText value="#{filierBean.fillierDTO.code}" type="text" name="field1" placeholder="Code de filier *" />
+                <h:inputText value="#{filierBean.fillierDTO.libelle}" type="text" name="field1" placeholder="libelle de filier *" />
+            </fieldset>
+            <h:commandButton action="#{filierBean.save}" value="save"></h:commandButton>
+        </h:form>
+    </div>
+    <div class="container mt-2">
+        <div class="card">
+            <div class="card-header">Filiers</div>
+                <div class="card-body">
+                    <h:form>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Code</th>
+                        <th scope="col">Libelle</th>
+                        <th scope="col">Modifier</th>
+                        <th scope="col">suprimer</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <ui:repeat value="#{filierBean.listFiliers}" var="f">
+                            <tr>
+                                <th scope="row">#{f.id}</th>
+                                <td>#{f.code}</td>
+                                <td>#{f.libelle}</td>
+                                <td><h:commandLink class="btn btn-danger" action="#{filierBean.update(f)}">modier</h:commandLink></td>
+                                <td><h:commandLink class="btn btn-info" action="#{filierBean.delete(f)}">suprimer</h:commandLink></td>
+                            </tr>
+                        </ui:repeat>
+                    </tbody>
+                </table>
+                    </h:form>
+                </div>
+        </div>
+    </div>
+</h:body>
+</html>
