@@ -1,5 +1,4 @@
 package devops.proj.studentservice.dao.entities;
-import devops.proj.studentservice.model.CourseStudy;
 import javax.persistence.*;
 import lombok.*;
 
@@ -12,11 +11,8 @@ public class Student {
     private Long id ;
     private String firstName ;
     private String lastName ;
+    @Column(unique = true)
     private String cne ;
     private String email ;
-    @OneToOne
-    private Picture profilePicture;
-    @Transient
-    private CourseStudy courseStudy ;
     private Long courseId ;
 }

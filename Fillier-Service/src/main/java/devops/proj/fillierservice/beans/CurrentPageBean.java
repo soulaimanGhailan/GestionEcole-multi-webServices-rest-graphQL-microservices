@@ -13,17 +13,20 @@ import javax.faces.bean.ManagedBean;
 public class CurrentPageBean {
     private String currentPage ;
 
-   public CurrentPageBean(){
+    public CurrentPageBean(){
        this.currentPage = "FILIERE" ;
    }
 
-    public void goToFilieres() {
+    public void routToFilieres() {
         this.currentPage="FILIERE" ;
     }
 
-    public void goToStudents() {
+    public void routToStudents() {
         this.currentPage = "STUDENT" ;
     }
 
 
+    public void routToAddStudent() {
+       this.currentPage = "AddStudent" ;
+    }
 }

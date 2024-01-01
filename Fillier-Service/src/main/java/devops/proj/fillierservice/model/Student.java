@@ -9,4 +9,5 @@ public class Student {
     private String lastName ;
     private String cne ;
     private String email ;
+    private Long courseId ;
 }

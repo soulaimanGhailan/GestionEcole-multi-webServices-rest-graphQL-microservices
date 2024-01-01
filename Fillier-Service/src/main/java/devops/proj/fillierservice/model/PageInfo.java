@@ -3,6 +3,7 @@ package devops.proj.fillierservice.model;
 import lombok.Data;
 
 @Data
-public class Picture {
-    private String imageContentBase64 ;
+public class PageInfo {
+    int totalPages ;
+    Long totalElements;
 }

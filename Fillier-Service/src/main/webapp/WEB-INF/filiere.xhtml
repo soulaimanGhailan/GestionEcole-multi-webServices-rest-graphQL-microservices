@@ -21,7 +21,9 @@
                 <h:inputText value="#{filierBean.fillierDTO.code}" type="text" name="field1" placeholder="Code de filier *" />
                 <h:inputText value="#{filierBean.fillierDTO.libelle}" type="text" name="field1" placeholder="libelle de filier *" />
             </fieldset>
-            <h:commandButton action="#{filierBean.save}" value="save"></h:commandButton>
+            <h:commandButton action="#{filierBean.save}" value="#{filierBean.label}">
+                <f:actionListener binding="#{filierBean.setModifyContext(false)}" />
+            </h:commandButton>
         </h:form>
     </div>
     <div class="container mt-2">
@@ -45,7 +47,7 @@
                                 <th scope="row">#{f.id}</th>
                                 <td>#{f.code}</td>
                                 <td>#{f.libelle}</td>
-                                <td><h:commandLink class="btn btn-danger" action="#{filierBean.update(f)}">modier</h:commandLink></td>
+                                <td><h:commandLink class="btn btn-danger" action="#{filierBean.update(f)}" value="modier"></h:commandLink></td>
                                 <td><h:commandLink class="btn btn-info" action="#{filierBean.delete(f)}">suprimer</h:commandLink></td>
                             </tr>
                         </ui:repeat>

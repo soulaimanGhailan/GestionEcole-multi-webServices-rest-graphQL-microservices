@@ -13,6 +13,12 @@
 <h:body>
     <h:outputStylesheet library="css" name="bootstrap.css"  />
     <div class="container mt-2">
+        <h:form>
+            <h:commandLink action="#{currentPageBean.routToAddStudent}" type="button" class="btn btn-success">Ajouter Etudiant</h:commandLink>
+        </h:form>
+        <br/>
+<!--        trier by filiere-->
+
         <div class="card">
             <div class="card-header">Etudiants</div>
             <div class="card-body">
@@ -45,7 +51,22 @@
                         </tbody>
                     </table>
                 </h:form>
+                totale etudiants : #{studentBean.studentsPageInfo.totalElements} <br/>
+                total pages : #{studentBean.studentsPageInfo.totalPages}
             </div>
+                    <div>
+                        <h:form>
+                            <ul class="pagination">
+                                <ui:repeat value="#{studentBean.pageNumbers}" var="page" >
+                                    <li class="page-item  mx-2">
+                                            <h:commandLink class="page-link" action="#{studentBean.setCurrentPage(page)}" styleClass="page-link">
+                                                    #{page}
+                                            </h:commandLink>
+                                    </li>
+                                </ui:repeat>
+                            </ul>
+                        </h:form>
+                    </div>
         </div>
     </div>
 </h:body>

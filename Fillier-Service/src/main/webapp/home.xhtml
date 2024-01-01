@@ -18,6 +18,10 @@
    <ui:fragment rendered="#{currentPageBean.currentPage ==  'FILIERE'}">
       <ui:include src="WEB-INF/filiere.xhtml" />
    </ui:fragment>
+
+   <ui:fragment rendered="#{currentPageBean.currentPage ==  'AddStudent'}">
+      <ui:include src="WEB-INF/addOrSaveStudent.xhtml" />
+   </ui:fragment>
 </h:body>
 
 

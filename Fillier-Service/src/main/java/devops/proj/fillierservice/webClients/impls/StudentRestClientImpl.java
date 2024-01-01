@@ -1,6 +1,6 @@
 package devops.proj.fillierservice.webClients.impls;
 
-import devops.proj.fillierservice.model.Picture;
+import devops.proj.fillierservice.model.PageInfo;
 import devops.proj.fillierservice.model.Student;
 import devops.proj.fillierservice.webClients.StudentRestClient;
 import org.springframework.http.HttpEntity;
@@ -43,17 +43,6 @@ public class StudentRestClientImpl implements StudentRestClient {
     }
 
     @Override
-    public Picture addPictureToStudent(Picture picture, Long studentId) {
-        ResponseEntity<Picture> studentResponseEntity = this.restTemplate.postForEntity(String.format("%s/picture/%d" , URL , studentId), getHttpEntity(picture), Picture.class);
-        return studentResponseEntity.getBody() ;
-    }
-
-    @Override
-    public void updatePictureOfStudent(Picture Picture, Long studentId) {
-        this.restTemplate.put(String.format("%s/picture/%d" , URL , studentId) , getHttpEntity(Picture));
-    }
-
-    @Override
     public List<Student> getStudents(int page, int size) {
         UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(URL)
                 .queryParam("page", page)
@@ -62,29 +51,33 @@ public class StudentRestClientImpl implements StudentRestClient {
         return List.of(students) ;
     }
 
-    @Override
-    public Picture getPictureOfStudent(Long studentId) {
-       return this.restTemplate.getForObject(String.format("%s/picture/%d" , URL , studentId) , Picture.class) ;
-    }
 
     @Override
     public void deleteStudent(Long studentId) {
         this.restTemplate.delete(String.format("%s/%d" , URL , studentId));
     }
 
-    @Override
-    public void deletePictureOfStudent(Long studentId) {
-        this.restTemplate.delete(String.format("%s/picture/%d" , URL , studentId));
-    }
+
 
     @Override
     public void deleteAllStudentsOfCourse(Long courseId) {
-
+        this.restTemplate.delete(String.format("%s/filiere/%d" , URL , courseId));
     }
 
     @Override
     public void deleteAllStudent() {
 
+    }
+
+    @Override
+    public Long getNumberOfStudent() {
+        return this.restTemplate.getForObject(String.format("%s/size", URL), Long.class);
+
+    }
+
+    @Override
+    public PageInfo getStudentsPageInfo(int size) {
+        return this.restTemplate.getForObject(String.format("%s/pageInfo?size=%d" , URL , size) , PageInfo.class);
     }
 
     private <T> HttpEntity<Object> getHttpEntity(T obj){

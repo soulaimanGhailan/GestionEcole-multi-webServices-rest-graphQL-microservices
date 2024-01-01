@@ -1,6 +1,5 @@
 package devops.proj.fillierservice.web;
 
-import devops.proj.fillierservice.model.Picture;
 import devops.proj.fillierservice.model.Student;
 import devops.proj.fillierservice.webClients.StudentRestClient;
 import org.springframework.web.bind.annotation.*;
@@ -34,20 +33,11 @@ public class StudentExposeRestWebservice {
         return this.studentRestClient.findStudentByCne(cne) ;
     }
 
-    @GetMapping("/picture/{id}")
-    public Picture getPictureOfStudent(@PathVariable Long id){
-        return this.studentRestClient.getPictureOfStudent(id) ;
-    }
 
     /**  post  **/
     @PostMapping
     public Student addStudent(@RequestBody Student student){
       return this.studentRestClient.saveStudent(student);
-    }
-
-    @PostMapping("/picture/{studentId}")
-    public Picture addStudentPicture(@RequestBody Picture picture , @PathVariable Long studentId){
-        return this.studentRestClient.addPictureToStudent(picture ,  studentId) ;
     }
 
 
@@ -57,20 +47,10 @@ public class StudentExposeRestWebservice {
        this.studentRestClient.updateStudent(student) ;
     }
 
-    @PutMapping("/picture/{studentId}")
-    public void updateStudentPicture(@RequestBody  Picture picture , @PathVariable Long studentId){
-         this.studentRestClient.updatePictureOfStudent(picture , studentId) ;
-    }
-
     /**  delete  **/
     @DeleteMapping("/{studentId}")
     public void deleteStudent(@PathVariable Long studentId){
          this.studentRestClient.deleteStudent(studentId) ;
-    }
-
-    @DeleteMapping("/picture/{studentId}")
-    public void deleteStudentPicture(@PathVariable Long studentId) {
-        this.studentRestClient.deletePictureOfStudent(studentId);
     }
 
 }

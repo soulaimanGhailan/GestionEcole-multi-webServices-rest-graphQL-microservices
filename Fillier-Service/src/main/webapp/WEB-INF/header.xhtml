@@ -11,11 +11,10 @@
 
 <h:body>
    <h:outputStylesheet library="css" name="bootstrap.css"  />
-<!--   <h:outputScript library="JS" name="bootstrap.js"/>-->
 
    <div class="navbar navbar-expand-lg bg-light">
       <div class="container-fluid">
-         <a class="navbar-brand" href="#">Gestion Filieres</a>
+         <a class="navbar-brand" href="#">Gestion Ecole</a>
          <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <h:form>
                   <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -24,18 +23,29 @@
                      </li>
 
                         <li class="nav-item">
-                           <h:commandLink action="#{currentPageBean.goToFilieres()}" class="nav-link" >Filieres</h:commandLink>
+                           <h:commandLink action="#{currentPageBean.routToFilieres()}" class="nav-link" value="Filieres" >
+
+                           </h:commandLink>
                         </li>
                         <li class="nav-item">
-                           <h:commandLink action="#{currentPageBean.goToStudents()}" class="nav-link" >Etudiant</h:commandLink>
+                           <h:commandLink action="#{currentPageBean.routToStudents()}" class="nav-link" value="Etudiant" >
+                              <f:actionListener binding="#{studentBean.setAllStudentPage(true)}" />
+                           </h:commandLink>
                         </li>
                   </ul>
                </h:form>
-<!--            <form class="d-flex" role="search">-->
-<!--               <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">-->
-<!--               <button class="btn btn-outline-success" type="submit">Search</button>-->
-<!--            </form>-->
+
+
          </div>
+            <div>
+               <h:form class="d-flex" role="search">
+                  <label for="sreachByCne">Search by cne</label>
+                  <h:inputText id="sreachByCne" value="#{studentBean.student.cne}" class="form-control me-2" type="search"  aria-label="Search"/>
+                  <h:commandLink action="#{studentBean.getStudentByCne}" class="btn btn-outline-success" type="submit" value="Search">
+                     <f:actionListener binding="#{currentPageBean.routToStudents()}" />
+                  </h:commandLink>
+               </h:form>
+            </div>
       </div>
    </div>
 

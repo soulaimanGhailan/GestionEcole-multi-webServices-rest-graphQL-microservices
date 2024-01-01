@@ -1,6 +1,5 @@
 package devops.proj.studentservice.web;
 
-import devops.proj.studentservice.dtos.PictureDTO;
 import devops.proj.studentservice.dtos.StudentDTO;
 import devops.proj.studentservice.exceptions.StudentNotFoundException;
 import devops.proj.studentservice.service.StudentService;
@@ -10,7 +9,6 @@ import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class StudentGraphQlController {
@@ -47,29 +45,18 @@ public class StudentGraphQlController {
         }
     }
 
-    @QueryMapping
-    public PictureDTO getPictureOfStudent(@Argument Long studentId){
-        try {
-            return this.studentService.getPictureOfStudent(studentId) ;
-        } catch (StudentNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     /**  Mutation / post delete put  **/
     @MutationMapping
     public StudentDTO addStudent(@Argument StudentDTO student){
-        return this.studentService.saveStudent(student);
-    }
-
-    @MutationMapping
-    public PictureDTO addStudentPicture(@Argument PictureDTO picture , @Argument Long studentId){
         try {
-            return this.studentService.addPictureToStudent(picture , studentId);
-        } catch (StudentNotFoundException e) {
+            return this.studentService.saveStudent(student);
+        } catch (devops.proj.studentservice.exceptions.CneExistsException e) {
             throw new RuntimeException(e);
         }
     }
+
+
 
 
     @MutationMapping
@@ -80,10 +67,7 @@ public class StudentGraphQlController {
             throw new RuntimeException(e);
         }
     }
-    @MutationMapping
-    public PictureDTO updateStudentPicture(@Argument  PictureDTO picture , @Argument Long studentId){
-        return this.studentService.updatePictureOfStudent(picture , studentId) ;
-    }
+
 
     @MutationMapping
     public StudentDTO deleteStudent(@Argument Long studentId){
@@ -94,9 +78,6 @@ public class StudentGraphQlController {
         }
     }
 
-    @MutationMapping
-    public void deleteStudentPicture(@Argument Long studentId) throws StudentNotFoundException {
-        this.studentService.deletePictureOfStudent(studentId);
-    }
+
 
 }

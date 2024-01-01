@@ -1,9 +1,10 @@
 package devops.proj.studentservice.web;
 
-import devops.proj.studentservice.dtos.PictureDTO;
+
+import devops.proj.studentservice.dtos.PageInfo;
 import devops.proj.studentservice.dtos.StudentDTO;
+import devops.proj.studentservice.exceptions.CneExistsException;
 import devops.proj.studentservice.exceptions.StudentNotFoundException;
-import devops.proj.studentservice.service.PictureService;
 import devops.proj.studentservice.service.StudentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,31 +46,21 @@ public class StudentRestController {
             return new ResponseEntity<>(null , HttpStatus.NOT_FOUND);
         }
     }
-
-    @GetMapping("/picture/{id}")
-    public PictureDTO getPictureOfStudent(@PathVariable Long id){
-        try {
-           return this.studentService.getPictureOfStudent(id) ;
-        } catch (StudentNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+    @GetMapping("pageInfo")
+    public PageInfo getStudentsNumber(@RequestParam(name = "size" , defaultValue = "5")int size){
+        return this.studentService.getPageInfo(size);
     }
 
     /**  post  **/
     @PostMapping
     public StudentDTO addStudent(@RequestBody StudentDTO studentDTO){
-        return this.studentService.saveStudent(studentDTO);
-    }
-
-    @PostMapping("/picture/{studentId}")
-    public PictureDTO addStudentPicture(@RequestBody PictureDTO pictureDTO , @PathVariable Long studentId){
         try {
-            return this.studentService.addPictureToStudent(pictureDTO , studentId);
-        } catch (StudentNotFoundException e) {
+            return this.studentService.saveStudent(studentDTO);
+        } catch (CneExistsException e) {
+            e.printStackTrace();
             throw new RuntimeException(e);
         }
     }
-
 
     /**  put  **/
     @PutMapping
@@ -80,10 +71,7 @@ public class StudentRestController {
             throw new RuntimeException(e);
         }
     }
-    @PutMapping("picture/{studentId}")
-    public PictureDTO updateStudentPicture(@RequestBody  PictureDTO pictureDTO , @PathVariable Long studentId){
-            return this.studentService.updatePictureOfStudent(pictureDTO , studentId) ;
-    }
+
 
     /**  delete  **/
     @DeleteMapping("{studentId}")
@@ -94,10 +82,12 @@ public class StudentRestController {
             throw new RuntimeException(e);
         }
     }
-    /**  delete  **/
-    @DeleteMapping("picture/{studentId}")
-    public void deleteStudentPicture(@PathVariable Long studentId) throws StudentNotFoundException {
-         this.studentService.deletePictureOfStudent(studentId);
+
+    @DeleteMapping("filiere/{filiereId}")
+    public void deleteStudentOfFiliere(@PathVariable Long filiereId){
+        System.out.println(filiereId);
+        this.studentService.deleteAllStudentsOfCourse(filiereId);
     }
+
 
 }

@@ -1,6 +1,5 @@
 package devops.proj.fillierservice.webClients.impls;
 
-import devops.proj.fillierservice.model.Picture;
 import devops.proj.fillierservice.model.Student;
 import devops.proj.fillierservice.webClients.StudentGraphQlClient;
 import org.springframework.stereotype.Component;
@@ -31,22 +30,7 @@ public class StudentGraphQlClientImpl implements StudentGraphQlClient {
     }
 
     @Override
-    public Picture addPictureToStudent(Picture Picture, Long studentId) {
-        return null;
-    }
-
-    @Override
-    public Picture updatePictureOfStudent(Picture Picture, Long studentId) {
-        return null;
-    }
-
-    @Override
     public List<Student> getStudents(int page, int size) {
-        return null;
-    }
-
-    @Override
-    public Picture getPictureOfStudent(Long studentId) {
         return null;
     }
 

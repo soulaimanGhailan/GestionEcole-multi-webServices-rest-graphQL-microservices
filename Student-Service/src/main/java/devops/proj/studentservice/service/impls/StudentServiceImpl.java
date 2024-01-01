@@ -1,13 +1,12 @@
 package devops.proj.studentservice.service.impls;
 
-import devops.proj.studentservice.dao.entities.Picture;
 import devops.proj.studentservice.dao.entities.Student;
 import devops.proj.studentservice.dao.reposotories.StudentRepo;
-import devops.proj.studentservice.dtos.PictureDTO;
+import devops.proj.studentservice.dtos.PageInfo;
 import devops.proj.studentservice.dtos.StudentDTO;
+import devops.proj.studentservice.exceptions.CneExistsException;
 import devops.proj.studentservice.exceptions.StudentNotFoundException;
 import devops.proj.studentservice.mappers.Mapper;
-import devops.proj.studentservice.service.PictureService;
 import devops.proj.studentservice.service.StudentService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
@@ -23,12 +22,10 @@ public class StudentServiceImpl implements StudentService {
 
     private StudentRepo studentRepo ;
     private Mapper mapper ;
-    private PictureService pictureService ;
 
-    public StudentServiceImpl(StudentRepo studentRepo, Mapper mapper, PictureService pictureService) {
+    public StudentServiceImpl(StudentRepo studentRepo, Mapper mapper) {
         this.studentRepo = studentRepo;
         this.mapper = mapper;
-        this.pictureService = pictureService;
     }
 
     @Override
@@ -45,7 +42,11 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public StudentDTO saveStudent(StudentDTO studentDTO) {
+    public StudentDTO saveStudent(StudentDTO studentDTO) throws CneExistsException {
+        Student studentByCne = this.studentRepo.findStudentByCne(studentDTO.getCne());
+        if(studentByCne != null){
+            throw new CneExistsException("cne exists exception (cne must be unique)") ;
+        }
         Student savedStudent = this.studentRepo.save(mapper.fromStudentDTO(studentDTO));
         return  mapper.fromStudent(savedStudent) ;
 
@@ -60,47 +61,15 @@ public class StudentServiceImpl implements StudentService {
         return  mapper.fromStudent(student) ;
     }
 
-    @Override
-    public PictureDTO addPictureToStudent(PictureDTO pictureDTO , Long studentId) throws StudentNotFoundException {
-        Student student = this.studentRepo.findById(studentId).orElseThrow(()
-                -> new RuntimeException("student not found exception"));
-        Picture picture = this.pictureService.create(pictureDTO);
-        student.setProfilePicture(picture);
-        this.studentRepo.save(student) ;
-        return mapper.fromPicture(picture) ;
-    }
 
-    @Override
-    public PictureDTO updatePictureOfStudent(PictureDTO pictureDTO , Long studentId) {
-        Student student = this.studentRepo.findById(studentId).orElseThrow(()
-                -> new RuntimeException("student not found exception"));
-        Picture picture = pictureService.updateImage(studentId, pictureDTO);
-        student.setProfilePicture(picture);
-        this.studentRepo.save(student) ;
-        return mapper.fromPicture(picture);
-    }
-
-    // avant il faut suprimmer l'image associer
     @Override
     public StudentDTO deleteStudent(Long studentId) throws StudentNotFoundException {
         Student student = this.studentRepo.findById(studentId).orElseThrow(() ->
                 new StudentNotFoundException("student not found exception"));
-        if (student.getProfilePicture() != null){
-            this.pictureService.delete(student.getProfilePicture().getPictureId());
-        }
         this.studentRepo.delete(student);
         return mapper.fromStudent(student);
     }
 
-    @Override
-    public void deletePictureOfStudent(Long studentId) throws StudentNotFoundException {
-        Student student = this.studentRepo.findById(studentId).orElseThrow(() ->
-                new StudentNotFoundException("student not found exception"));
-        Long pictureId = student.getProfilePicture().getPictureId();
-        student.setProfilePicture(null);
-        this.pictureService.delete(pictureId);
-        this.studentRepo.save(student) ;
-    }
 
     @Override
     public List<StudentDTO> getStudents(int page, int size) {
@@ -110,19 +79,27 @@ public class StudentServiceImpl implements StudentService {
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public PictureDTO getPictureOfStudent(Long studentId) throws StudentNotFoundException {
-        Student student = this.studentRepo.findById(studentId).orElseThrow(() -> new StudentNotFoundException("student not found exception"));
-        return pictureService.getPicById(student.getProfilePicture().getPictureId());
-    }
 
     @Override
     public void deleteAllStudentsOfCourse(Long courseId) {
-
+        this.studentRepo.deleteByCourseId(courseId);
     }
 
     @Override
     public void deleteAllStudent() {
 
+    }
+
+    @Override
+    public long getNumberOfStudents() {
+        return this.studentRepo.count() ;
+    }
+
+    @Override
+    public PageInfo getPageInfo(int size) {
+        PageInfo pageInfo = new PageInfo() ;
+        pageInfo.setTotalElements(this.studentRepo.count());
+        pageInfo.setTotalPages(this.studentRepo.findAll(PageRequest.of(0, size)).getTotalPages());
+        return pageInfo;
     }
 }
