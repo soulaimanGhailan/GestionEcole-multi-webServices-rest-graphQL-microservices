@@ -44,7 +44,9 @@
                                 <td>#{e.lastName}</td>
                                 <td>#{e.cne}</td>
                                 <td>#{e.email}</td>
-                                <td><h:commandLink class="btn btn-danger" action="#{studentBean.update(e)}">modier</h:commandLink></td>
+                                <td><h:commandLink class="btn btn-danger" action="#{studentBean.update(e)}" value="mofier">
+                                    <f:actionListener binding="#{currentPageBean.routToAddStudent()}" />
+                                </h:commandLink></td>
                                 <td><h:commandLink class="btn btn-info" action="#{studentBean.delete(e)}">suprimer</h:commandLink></td>
                             </tr>
                         </ui:repeat>

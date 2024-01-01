@@ -1,0 +1,25 @@
+services:
+  student-service:
+    build: ./Student-Service
+    container_name: student-service-container
+    ports:
+      - "8085:8085"
+    expose:
+      - "8085"
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8085/actuator/health" ]
+      interval: 10s
+      retries: 4
+  filiere-service:
+    container_name: filiere-service
+    build: ./Fillier-Service
+    ports:
+      - "8080:8080"
+    expose:
+      - "8080"
+    depends_on:
+        student-service:
+          condition: service_healthy
+
+    environment:
+      - STUDENT_SERVICE_URL=http://student-service-container:8085/students

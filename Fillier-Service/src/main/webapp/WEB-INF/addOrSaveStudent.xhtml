@@ -34,7 +34,7 @@
 
             </fieldset>
 
-            <h:commandButton action="#{studentBean.saveStudent}"  value="save">
+            <h:commandButton action="#{studentBean.saveStudent}"  value="#{studentBean.label}">
                 <f:actionListener binding="#{currentPageBean.routToStudents()}" />
             </h:commandButton>
 

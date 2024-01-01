@@ -14,11 +14,16 @@
 	<context:component-scan base-package="devops" />
 
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/fillierdb" />
-		<property name="username" value="root" />
-		<property name="password" value="password" />
+<!--		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />-->
+<!--		<property name="url" value="jdbc:mysql://localhost:3306/fillierdb" />-->
+<!--		<property name="username" value="root" />-->
+<!--		<property name="password" value="password" />-->
+		<property name="driverClassName" value="org.h2.Driver" />
+		<property name="url" value="jdbc:h2:mem:filierDb;DB_CLOSE_DELAY=-1" />
+		<property name="username" value="sa" />
+		<property name="password" value="" />
 	</bean>
+
 
 	<bean id="sf" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
@@ -29,7 +34,7 @@
 		</property>
 		<property name="hibernateProperties">
 			<props>
-				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</prop>
+				<prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect</prop>
 				<prop key="hibernate.show_sql">true</prop>
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
 			</props>
@@ -43,6 +48,12 @@
 	<bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
 
 	</bean>
+
+	<!--student service url bean-->
+	<bean id="studentServiceURL" class="java.lang.String">
+		<constructor-arg value="#{ systemEnvironment['STUDENT_SERVICE_URL'] ?: 'http://localhost:8085/students' }" />
+	</bean>
+
 
 	<tx:annotation-driven transaction-manager="tm" />
 

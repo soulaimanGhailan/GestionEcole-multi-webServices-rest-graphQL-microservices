@@ -3,6 +3,7 @@ package devops.proj.fillierservice.webClients.impls;
 import devops.proj.fillierservice.model.PageInfo;
 import devops.proj.fillierservice.model.Student;
 import devops.proj.fillierservice.webClients.StudentRestClient;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -15,10 +16,13 @@ import java.util.List;
 @Component
 public class StudentRestClientImpl implements StudentRestClient {
     private RestTemplate restTemplate ;
-    private String URL = "http://localhost:8085/students";
+    @Value("#{studentServiceURL}")
+    private String URL;
+//    private String URL = "http://localhost:8085/students";
 
-    public StudentRestClientImpl(RestTemplate restTemplate) {
+    public StudentRestClientImpl(RestTemplate restTemplate , String url) {
         this.restTemplate = restTemplate;
+        this.URL=url ;
     }
 
     @Override

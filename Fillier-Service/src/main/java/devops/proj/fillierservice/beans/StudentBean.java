@@ -5,6 +5,7 @@ import devops.proj.fillierservice.model.PageInfo;
 import devops.proj.fillierservice.model.Student;
 import devops.proj.fillierservice.webClients.StudentRestClient;
 import lombok.Data;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -26,11 +27,13 @@ public class StudentBean {
     private PageInfo studentsPageInfo ;
     private int currentPage;
     private boolean allStudentPage ;
+    private boolean modifiedContext ;
 
     public StudentBean(){
         this.student = new Student() ;
         this.currentPage = 0 ;
         this.allStudentPage =true ;
+        this.modifiedContext = false ;
     }
 
     public void onPageLoad() {
@@ -42,7 +45,10 @@ public class StudentBean {
 
     public String saveStudent(){
         this.allStudentPage=true ;
-        this.studentRestClient.saveStudent(student);
+        if(this.modifiedContext == false)
+            this.studentRestClient.saveStudent(student);
+        else
+            this.studentRestClient.updateStudent(student);
         return "SUCCESS" ;
     }
 
@@ -62,8 +68,8 @@ public class StudentBean {
 
     public void update(Student student) {
         this.allStudentPage=true ;
-        this.studentRestClient.updateStudent(student);
-        getStudentsPage(0 , 5);
+        BeanUtils.copyProperties(student , this.student);
+        this.modifiedContext = true ;
     }
 
     public void delete(Student student) {
@@ -80,5 +86,8 @@ public class StudentBean {
         return nums ;
     }
 
+    public String getLabel(){
+        return this.modifiedContext==false ? "ajouter" : "modifier";
+    }
 
 }
