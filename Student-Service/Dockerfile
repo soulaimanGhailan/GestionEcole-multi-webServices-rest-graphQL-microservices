@@ -1,4 +1,5 @@
-FROM openjdk:17-oracle
+FROM openjdk:11
 VOLUME /tmp
 COPY target/*.jar app.jar
 ENTRYPOINT ["java","-jar","/app.jar"]
+

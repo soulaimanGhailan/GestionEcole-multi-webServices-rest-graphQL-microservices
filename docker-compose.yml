@@ -8,8 +8,8 @@ services:
       - "8085"
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://localhost:8085/actuator/health" ]
-      interval: 10s
-      retries: 10
+      interval: 5s
+      retries: 20
   filiere-service:
     container_name: filiere-service
     build: ./Fillier-Service
