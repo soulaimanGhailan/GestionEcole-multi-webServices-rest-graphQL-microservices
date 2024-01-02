@@ -56,9 +56,6 @@ public class StudentGraphQlController {
         }
     }
 
-
-
-
     @MutationMapping
     public StudentDTO updateStudent(@Argument  StudentDTO student){
         try {

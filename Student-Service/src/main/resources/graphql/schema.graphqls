@@ -1,17 +1,13 @@
-
 type Query {
     getStudentById(id : Float) : StudentDTO ,
-    getStudentByCne(cne : String) : StudentDTO ,
-
+    getStudentByCne(cne : String) : StudentDTO
 }
-
 type Mutation {
     addStudent(student : StudentRequest) : StudentDTO ,
     updateStudent(student : StudentRequest) : StudentDTO ,
     deleteStudent(studentId : Float) : StudentDTO,
     deleteStudentPicture(studentId : Float) : String
 }
-
 type StudentDTO {
     id : Float ,
     firstName : String ,
@@ -20,7 +16,6 @@ type StudentDTO {
     email : String ,
     courseId : Float
 }
-
 input StudentRequest {
     id : Float ,
     firstName : String ,

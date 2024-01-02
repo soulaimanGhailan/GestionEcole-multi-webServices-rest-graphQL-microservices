@@ -19,17 +19,14 @@ public class StudentRestClientImpl implements StudentRestClient {
     @Value("#{studentServiceURL}")
     private String URL;
 //    private String URL = "http://localhost:8085/students";
-
     public StudentRestClientImpl(RestTemplate restTemplate , String url) {
         this.restTemplate = restTemplate;
         this.URL=url ;
     }
-
     @Override
     public Student findStudentById(Long studentId) {
         return this.restTemplate.getForObject(String.format("%s/id/%d", URL, studentId), Student.class);
     }
-
     @Override
     public Student findStudentByCne(String cne) {
         return this.restTemplate.getForObject(String.format("%s/cne/%s", URL, cne), Student.class);

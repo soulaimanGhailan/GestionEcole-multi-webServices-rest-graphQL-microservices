@@ -20,6 +20,5 @@ services:
     depends_on:
         student-service:
           condition: service_healthy
-
     environment:
       - STUDENT_SERVICE_URL=http://student-service-container:8085/students
